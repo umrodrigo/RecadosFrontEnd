@@ -2,8 +2,10 @@
 const usuarioLogado = localStorage.getItem('userLogado');
 // Usado na função botaoSalvar
 let indiceUpdate = undefined;
+const api = "https://recadosbackend.herokuapp.com";
+
 window.addEventListener('load', () => {        
-    axios.get(`https://recadosbackend.herokuapp.com/users/${usuarioLogado}`)
+    axios.get(`${api}/users/${usuarioLogado}`)
         .then((resposta) => { 
             mostrarRecados(resposta);               
         });
@@ -11,7 +13,7 @@ window.addEventListener('load', () => {
 
 // recarregar lista de recados atualizada/editada/apagada
 function atualizaRecados() {
-    axios.get(`https://recadosbackend.herokuapp.com/users/${usuarioLogado}`)
+    axios.get(`${api}/users/${usuarioLogado}`)
         .then((resposta) => { 
             mostrarRecados(resposta);               
         });
@@ -58,7 +60,7 @@ function botaoEditar(rid) {
 function criarRecado() {
     const descri = document.getElementById('inputDescri').value;
     const detalhes = document.getElementById('inputDetalha').value;
-    axios.post(`https://recadosbackend.herokuapp.com/users/${usuarioLogado}`, {
+    axios.post(`${api}/users/${usuarioLogado}`, {
         descricao: descri, detalhes: detalhes
     }).then((resposta) => {
         chamaAlert('success', 'Recado salvo com sucesso!');
@@ -72,7 +74,7 @@ function criarRecado() {
 function editarRecados(rid) {
     const descri = document.getElementById('inputDescri').value;
     const detalhes = document.getElementById('inputDetalha').value;
-    axios.put(`https://recadosbackend.herokuapp.com/users/${usuarioLogado}/recado/${rid}`, {
+    axios.put(`${api}/users/${usuarioLogado}/recado/${rid}`, {
         descricao: descri, detalhes: detalhes
     }).then((resposta) => {
         chamaAlert('warning', 'Recado editado com sucesso!');
@@ -83,12 +85,9 @@ function editarRecados(rid) {
 
 // Apagar recado
 function apagar(rid) {    
-    axios.delete(`https://recadosbackend.herokuapp.com/users/${usuarioLogado}/recado/${rid}`).then((resposta) => {
+    axios.delete(`${api}/users/${usuarioLogado}/recado/${rid}`).then((resposta) => {
         chamaAlert('danger','Atenção! Recado apagado!');
-        axios.get(`https://recadosbackend.herokuapp.com/users/${usuarioLogado}`)
-        .then((resposta) => { 
-            mostrarRecados(resposta);
-        });
+        atualizaRecados();
     })
 }
 
