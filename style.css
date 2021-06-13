@@ -1,0 +1,22 @@
+body{
+    padding-top: 50px;
+    background: url(img/fundo.jpg);
+    background-size: cover;
+    background-repeat: repeat-y;
+}
+
+.padding{
+    padding-top: 10px;
+}
+
+.btnS{
+    height: 70%;    
+    height: 40px;
+    width: 66px !important;
+}
+.padd {
+    padding-right: 0 !important;
+}
+#alertMasterUltra{
+    padding-top: 10px;
+}
